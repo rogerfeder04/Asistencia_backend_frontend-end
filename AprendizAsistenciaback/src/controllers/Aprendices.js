@@ -102,23 +102,17 @@ const httpAprendiz = {
     },
 
 
-    obtenerFichaIdPorNombre : async (req, res) => {
+    obtenerFichaIdPorNombre: async (req, res) => {
         try {
             const { nombreFicha } = req.params;
     
-            // Buscar en el modelo Aprendices por nombre de ficha
-            const aprendiz = await Aprendices.findOne().populate({
-                path: 'IdFicha',
-                match: { nombre: nombreFicha },
-                select: '_id nombre'
-            });
-            // if (!aprendiz || !aprendiz.IdFicha) {
-            //     return res.status(404).json({ message: 'Ficha no encontrada para el aprendiz' });
-            // }
+            const ficha = await Ficha.findOne({ nombre: nombreFicha }).select('_id');
     
-            // Devuelve el _id de la ficha encontrada
-            res.json({ _id: aprendiz.IdFicha._id });
+            if (!ficha) {
+                return res.status(404).json({ message: 'Ficha no encontrada' });
+            }
     
+            res.json({ fichaId: ficha._id });
         } catch (error) {
             console.error('Error al buscar la ficha:', error);
             res.status(500).json({ message: 'Error al buscar la ficha' });
@@ -126,4 +120,4 @@ const httpAprendiz = {
     }
 };
 
-export default httpAprendiz;
+export default httpAprendiz;

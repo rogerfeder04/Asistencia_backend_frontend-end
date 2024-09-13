@@ -26,7 +26,7 @@ router.post('/login', [
 ], httpUsuario.login);
 
 router.get('/listar', [
-    // validarJWT
+    validarJWT
 ], httpUsuario.listarUsuarios);
 
 router.put('/editar/:id', [
@@ -35,7 +35,7 @@ router.put('/editar/:id', [
     check('email', 'El email es obligatorio').not().isEmpty(),
     check('email', 'El email no es válido').isEmail(),
     validarCampos
-], httpUsuario.editarUsuario);
+], httpUsuario.editarUsuario)
 
 router.put('/cambiarContrasena/:id', [
     // validarJWT,

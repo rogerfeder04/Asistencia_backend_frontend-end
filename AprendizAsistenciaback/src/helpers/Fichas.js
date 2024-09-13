@@ -5,7 +5,15 @@ const fichasHelper = {
   existeFichaID: async (id, req) => {
         const existe = await Ficha.findById(id);
         if (!existe) {
-            throw new Error( `No existe el ficha con ID ${id}`);
+            throw new Error(`No existe el ficha con ID ${id}`);
+        }
+        req.fichasbd =existe;
+    },
+
+    existeNombreFicha: async (nombre) => {
+        const existe = await Ficha.findOne({ nombre });
+        if (!existe) {
+            throw new Error(` No existe la ficha con nombre ${nombre}`);
         }
         req.fichasbd =existe;
     },
@@ -34,4 +42,4 @@ const fichasHelper = {
     },
 };
 
-export { fichasHelper };
+export { fichasHelper };

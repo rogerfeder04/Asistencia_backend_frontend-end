@@ -6,12 +6,12 @@ import { validarJWT } from '../middleware/validarJWT.js';
 import { validarCampos } from '../middleware/validar-campos.js';
 import { aprendicesHelper } from '../helpers/Aprendices.js';
 import { bitacoraHelper } from '../helpers/Bitacora.js';
-import { fichasHelper } from '../helpers/fichas.js';
+import { fichasHelper } from '../helpers/Fichas.js';
 const router = express.Router();
 
 router.post('/insertar',
     [
-        /* validarJWT, */
+        // validarJWT, 
         check('IdAprendis', 'No es un ID válido').isMongoId(),
         /* check('IdAprendis').custom(aprendicesHelper.existeAprendizID), */
         check('fecha', 'La fecha es obligatorio').not().isEmpty(),
@@ -21,7 +21,7 @@ router.post('/insertar',
 
     router.put('/estado/:id',
         [
-            /* validarJWT, */
+            validarJWT, 
             check('id', 'No es un ID válido').isMongoId(),
             check('id').custom(bitacoraHelper.existeBitacoraID),
             validarCampos
@@ -30,14 +30,14 @@ router.post('/insertar',
 
 router.get('/bitacora/:inicio/:fin',
     [
-        /* validarJWT */
+         validarJWT 
     ],
     httpBitacora.listarBitacoraPorFecha);
     
 // intervalo de fechas y fecha especifica listar por id aprendiz....
 router.get('/listarBitacora/:IdAprendis/:fechaInicio/:fechaFin',
     [
-        /* validarJWT, */
+        validarJWT, 
         check('IdAprendis', 'No es un ID válido').isMongoId(),
         check('IdAprendis').custom(aprendicesHelper.existeAprendizID),
         validarCampos
@@ -48,7 +48,7 @@ router.get('/listarBitacora/:IdAprendis/:fechaInicio/:fechaFin',
 
 router.get('/ListarbitacoraIdFicha/:IdFicha/:fechaInicio/:fechaFin',
     [
-        /* validarJWT, */
+        validarJWT, 
         check('IdFicha', 'El id invalido').isMongoId(),
         check('IdFicha').custom(fichasHelper.existeFichaID),
         validarCampos

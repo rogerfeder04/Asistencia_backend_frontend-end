@@ -25,13 +25,13 @@ router.post('/insertaraprendiz',
 
 
 router.get('/Listar', [
-    // validarJWT
+    validarJWT
 ],  httpAprendiz.listarAprendiz)
 
-router.get('/ListarIdNombre/::nombreFicha', [
+router.get('/ListarIdNombre/:nombreFicha', [
     // validarJWT
-    check('IdFicha').custom(fichasHelper.existeFichaID)
-],  httpAprendiz.obtenerFichaIdPorNombre)
+    check('nombreFicha').custom(fichasHelper.existeNombreFicha)
+],  httpAprendiz.obtenerFichaIdPorNombre);
 
 
 
@@ -70,4 +70,4 @@ router.delete('/Eliminar/:id',[
 
 // router.put('/Editar/:id', httpAprendiz.editarAprendiz)
 
-export default router;
+export default router;

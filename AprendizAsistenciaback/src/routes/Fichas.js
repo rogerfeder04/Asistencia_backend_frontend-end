@@ -18,16 +18,17 @@ router.post('/insertar', [
 
 
 router.get('/listar', [
-    // validarJWT
+    validarJWT
 ], httpFichas.listarFichas);
 
 
 router.get('/lista2/:IdFicha', [
-    // validarJWT,
+    validarJWT,
     check('IdFicha', 'El id invalido').isMongoId(),
     check('IdFicha').custom(fichasHelper.existeFichaID),
     validarCampos
 ], httpFichas.listarFichaPorId);
+
 
 router.delete('/eliminar/:id', [
     // validarJWT,
